@@ -25,7 +25,6 @@ jobs:
       - name: Pull image from DockerHub
         run: docker pull thealpha06/reactjs-app:latest
       - name: Delete existing container
-        run: docker rm -f reactjs-app || true
+        run: docker system prune -f
       - name: Run container
-        run: docker run -d -p 3000:80 --name reactContainenr thealpha06/reactjs-app
-        
+        run: docker run -d -p 3000:80 --name reactContainer thealpha06/reactjs-app
