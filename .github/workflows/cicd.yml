@@ -1,0 +1,30 @@
+name: CICD
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Build and push image
+        run: docker build -t thealpha06/reactjs-app .
+      - name: Push to DockerHub
+        run: docker push thealpha06/reactjs-app:latest
+  deploy:
+    runs-on: aws-ec2
+    needs: build
+    steps:
+      - name: Pull image from DockerHub
+        run: docker pull thealpha06/reactjs-app:latest
+      - name: Delete existing container
+        run: docker rm -f reactjs-app || true
+      - name: Run container
+        run: docker run -d -p 3000:80 --name reactContainenr thealpha06/reactjs-app
