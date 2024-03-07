@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Hi! I'm a React App. 
+          Continuous Integration and Continuous Deployment (CI/CD) with GitHub Actions and Runners
         </a>
       </header>
     </div>
