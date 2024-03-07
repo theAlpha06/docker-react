@@ -28,3 +28,4 @@ jobs:
         run: docker rm -f reactjs-app || true
       - name: Run container
         run: docker run -d -p 3000:80 --name reactContainenr thealpha06/reactjs-app
+        
