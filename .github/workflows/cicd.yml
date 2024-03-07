@@ -26,5 +26,8 @@ jobs:
         run: docker pull thealpha06/reactjs-app:latest
       - name: Stop and remove existing container
         run: docker stop reactContainer && docker rm reactContainer || true
+      - name: Check and kill process on port 3000
+        run: |
+          sudo lsof -ti:3000 | xargs sudo kill -9
       - name: Run container
         run: docker run -d -p 3000:80 --name reactContainer thealpha06/reactjs-app
